@@ -10,7 +10,7 @@ const allbooks = (req, rsp) => {
 	
 	var sqlStr = 'Select t1.book_id, t1.title, t1.author, t2.img_path \
 				from book_meta t1, book_info t2 \
-				where t1.book_id> 6200 and t2.book_id=t1.remark order by t1.book_id desc';
+				where t1.book_id and t2.book_id=t1.remark order by t1.book_id desc';
 	query(sqlStr,(err, results, fields) => {
 		if(err) throw err;
 		console.log('length: '+results.length)
@@ -39,7 +39,7 @@ const allbooks = (req, rsp) => {
 
 function getPages(results, currentPag) {
 	var items = new Array();
-	for(var i = 0; i < 30; i++) {
+	for(var i = 0; i < cnt; i++) {
 		index = cnt*(currentPag-1)+i;
 		if(index >= results.length) break;
 		items[i] = results[index];
