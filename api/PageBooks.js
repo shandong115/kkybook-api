@@ -4,7 +4,7 @@ const cnt = require('../config/everyPageCounts').count
 const allbooks = (req, rsp) => {
 	// console.log('p='+req.query.p)
 	var currentPage = parseInt(req.query.p)
-	if(!currentPage || currentPage < 0) currentPage = 1;
+	if(!currentPage || currentPage <= 0) currentPage = 1;
 	
 	console.log('currentPage: ' + currentPage);
 	
