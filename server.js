@@ -1,6 +1,10 @@
 const express = require('express')
 const server = express()
 const port = require('./config/server-port').port
+const baseData = require('./api/baseData.js')
+
+const items = baseData()
+console.log('item length: ' + items.length)
 
 server.all('*', function(req, rsp, next) {
     rsp.header("Access-Control-Allow-Credentials", true)
