@@ -2,7 +2,7 @@ const query = require('../db/sqldeal.js')
 const cnt = require('../config/everyPageCounts').count
 
 const allbooks = (req, rsp) => {
-	console.log('p='+req.query.p)
+	// console.log('p='+req.query.p)
 	var currentPag = parseInt(req.query.p)
 	if(!currentPag || currentPag < 0) currentPag = 1;
 	
@@ -13,7 +13,7 @@ const allbooks = (req, rsp) => {
 				where t1.book_id and t2.book_id=t1.remark order by t1.book_id desc';
 	query(sqlStr,(err, results, fields) => {
 		if(err) throw err;
-		console.log('length: '+results.length)
+		console.log('total items: '+results.length)
 		items = getPages(results, currentPag);
 		
 		if(items.length<=0)  {
@@ -33,6 +33,7 @@ const allbooks = (req, rsp) => {
 				msg: 'success',
 				data: data
 			})
+			console.log("total pages: " + data.total)
 		}		
 	});
 }
