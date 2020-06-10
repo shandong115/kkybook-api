@@ -16,7 +16,7 @@ server.get('/', (req, rsp) => {
 	rsp.send('Hello DaYou!')
 })
 
-server.get('/allbooks', require('./api/allbooks.js'))
+server.get('/allbooks', require('./api/PageBooks.js'))
 
 server.listen(port, () => {
 	console.log(`the server is listening on port ${port}!`)

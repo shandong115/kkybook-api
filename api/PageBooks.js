@@ -3,10 +3,10 @@ const cnt = require('../config/everyPageCounts').count
 
 const allbooks = (req, rsp) => {
 	// console.log('p='+req.query.p)
-	var currentPag = parseInt(req.query.p)
-	if(!currentPag || currentPag < 0) currentPag = 1;
+	var currentPage = parseInt(req.query.p)
+	if(!currentPage || currentPage < 0) currentPage = 1;
 	
-	console.log('currentPag: ' + currentPag);
+	console.log('currentPage: ' + currentPage);
 	
 	var sqlStr = 'Select t1.book_id, t1.title, t1.author, t2.img_path \
 				from book_meta t1, book_info t2 \
@@ -14,7 +14,7 @@ const allbooks = (req, rsp) => {
 	query(sqlStr,(err, results, fields) => {
 		if(err) throw err;
 		console.log('total items: '+results.length)
-		items = getPages(results, currentPag);
+		items = getPages(results, currentPage);
 		
 		if(items.length<=0)  {
 			rsp.json({
@@ -25,7 +25,7 @@ const allbooks = (req, rsp) => {
 		else {
 			data = {
 				total: Math.ceil(results.length/cnt),
-				currentPag: currentPag,
+				currentPage: currentPage,
 				detail: items
 			};
 			rsp.json({
@@ -38,10 +38,10 @@ const allbooks = (req, rsp) => {
 	});
 }
 
-function getPages(results, currentPag) {
+function getPages(results, currentPage) {
 	var items = new Array();
 	for(var i = 0; i < cnt; i++) {
-		index = cnt*(currentPag-1)+i;
+		index = cnt*(currentPage-1)+i;
 		if(index >= results.length) break;
 		items[i] = results[index];
 	}
