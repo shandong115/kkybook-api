@@ -7,7 +7,6 @@ const baseData = new BaseData();
 
 baseData.setItems();
 
-
 server.all('*', function(req, rsp, next) {
     rsp.header("Access-Control-Allow-Credentials", true)
     rsp.header("Access-Control-Allow-Origin", "*")
