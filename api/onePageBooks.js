@@ -1,13 +1,12 @@
 const cnt = require('../config/everyPageCounts').count
 
 const onePageBooks = (req, rsp) => {
-	const items = req.params.items
 	var currentPage = parseInt(req.query.p)
 	if(!currentPage || currentPage <= 0) currentPage = 1;
 	
 	console.log('currentPage: ' + currentPage);
 	
-	const books = getPages(items, currentPage);
+	const books = getPages(req.params.items, currentPage);
 			
 	if(books.length<=0)  {
 		rsp.json({
@@ -17,7 +16,7 @@ const onePageBooks = (req, rsp) => {
 	}
 	else {
 		data = {
-			total: Math.ceil(items.length/cnt),
+			total: Math.ceil(req.params.items.length/cnt),
 			currentPage: currentPage,
 			detail: books
 		};
