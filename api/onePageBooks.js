@@ -16,7 +16,7 @@ const onePageBooks = (req, rsp) => {
 	}
 	else {
 		data = {
-			total: Math.ceil(req.params.items.length/cnt),
+			totalPages: Math.ceil(req.params.items.length/cnt),
 			currentPage: currentPage,
 			detail: books
 		};
@@ -25,7 +25,7 @@ const onePageBooks = (req, rsp) => {
 			msg: 'success',
 			data: data
 		})
-		console.log("total pages: " + data.total)
+		console.log("total pages: " + data.totalPages)
 	}
 }
 
