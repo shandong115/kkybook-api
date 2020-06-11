@@ -1,10 +1,12 @@
-const express = require('express')
-const server = express()
-const port = require('./config/server-port').port
-const baseData = require('./api/baseData.js')
+const express = require('express');
+const server = express();
+const port = require('./config/server-port').port;
+const BaseData = require('./api/baseData.js');
 
-const items = baseData()
-console.log('item length: ' + items.length)
+const baseData = new BaseData();
+
+baseData.setItems();
+
 
 server.all('*', function(req, rsp, next) {
     rsp.header("Access-Control-Allow-Credentials", true)
@@ -16,12 +18,19 @@ server.all('*', function(req, rsp, next) {
     next()
 });
 
-server.get('/', (req, rsp) => {
+var cb = function(req, rsp, next) {
+	console.log('this is the first cb.');
+	req.params['items'] = baseData.getItems();
+	next();
+}
+
+server.get('/', (req, rsp) => {	
 	rsp.send('Hello DaYou!')
 })
 
-server.get('/pageBooks', require('./api/PageBooks.js'))
+server.get('/onePageBooks', [cb], require('./api/onePageBooks.js'))
 
 server.listen(port, () => {
 	console.log(`the server is listening on port ${port}!`)
 })
+
