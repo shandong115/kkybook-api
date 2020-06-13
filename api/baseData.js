@@ -3,7 +3,7 @@ const query = require('../db/sqldeal.js');
 function BaseData () {
 	var items;
 	this.setItems = function () {
-		let sqlStr = 'Select t1.book_id, t1.name, t1.title, t1.author, t2.img_path \
+		let sqlStr = 'Select t1.book_id, t1.title, t1.author,t1.size, t2.img_path \
 					from book_meta t1, book_info t2 \
 					where t2.book_id=t1.remark order by t1.book_id desc';
 		console.log(sqlStr)
